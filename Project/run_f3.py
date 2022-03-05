@@ -1,8 +1,9 @@
-from formulations import solve_f2, load_instances
+from formulations import solve_f3, load_instances
 
 
-def run_f2():
+def run_f3():
     print('\n\n*** FORMULATION F2 ***\n\n')
+
     # Load instances
     instances = load_instances()
 
@@ -10,22 +11,28 @@ def run_f2():
     for i, inst in enumerate(instances):
         # Solve as-is initially
         print('*** Solving Model {} ***'.format(names[i]))
-        solve_f2(inst, **{'TimeLimit': 10})
+        solve_f3(inst, **{'TimeLimit': 10})
         print()
 
         # Turn off Presolve
         print('Presolve Turned Off\n')
-        solve_f2(inst, **{'Presolve': 0, 'TimeLimit': 10})
+        solve_f3(inst, **{'Presolve': 0, 'TimeLimit': 10})
         print()
 
         # Turn off cuts
         print('Cuts Turned Off\n')
-        solve_f2(inst, **{'Cuts': 0, 'TimeLimit': 10})
+        solve_f3(inst, **{'Cuts': 0, 'TimeLimit': 10})
         print()
 
         # Turn off both presolve and cuts
         print('Presolve and Cuts Turned Off\n')
-        solve_f2(inst, **{'Presolve': 0, 'Cuts': 0, 'TimeLimit': 10})
+        solve_f3(inst, **{'Presolve': 0, 'Cuts': 0, 'TimeLimit': 10})
         print()
+
+
+if __name__ == '__main__':
+    from run_f2 import run_f2
+    run_f2()
+    run_f3()
 
 

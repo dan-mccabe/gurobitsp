@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 
 
-def solve_f0(c_ij):
+def solve_f0(c_ij, **kwargs):
     n_cities = np.shape(c_ij)[0]
     cities = np.arange(n_cities)
     model = gp.Model("F0")
@@ -22,6 +22,10 @@ def solve_f0(c_ij):
                        GRB.MINIMIZE)
 
     # Optimize
+    for k in kwargs:
+        model.setParam(k, kwargs[k])
+    if 'TimeLimit' not in kwargs:
+        model.setParam('TimeLimit', 3600)
     model.optimize()
 
     # Status checking
@@ -32,7 +36,7 @@ def solve_f0(c_ij):
               "unbounded")
         sys.exit(1)
 
-    if status != GRB.OPTIMAL:
+    if status != GRB.OPTIMAL and status != GRB.TIME_LIMIT:
         print("Optimization was stopped with status ", status)
         sys.exit(1)
 
@@ -40,7 +44,7 @@ def solve_f0(c_ij):
     objval = model.getAttr(GRB.Attr.ObjVal)
 
 
-def solve_f2(c_ij):
+def solve_f2(c_ij, fname=None, **kwargs):
     n_cities = np.shape(c_ij)[0]
     cities = np.arange(n_cities)
     city0 = 0
@@ -70,6 +74,10 @@ def solve_f2(c_ij):
                        GRB.MINIMIZE)
 
     # Optimize
+    for k in kwargs:
+        model.setParam(k, kwargs[k])
+    if 'TimeLimit' not in kwargs:
+        model.setParam('TimeLimit', 3600)
     model.optimize()
 
     # Status checking
@@ -80,15 +88,17 @@ def solve_f2(c_ij):
               "unbounded")
         sys.exit(1)
 
-    if status != GRB.OPTIMAL:
+    if status != GRB.OPTIMAL and status != GRB.TIME_LIMIT:
         print("Optimization was stopped with status ", status)
         sys.exit(1)
 
     # Print result
-    objval = model.getAttr(GRB.Attr.ObjVal)
+    model.getAttr(GRB.Attr.ObjVal)
+    if fname:
+        model.write(fname)
 
 
-def solve_f3(c_ij):
+def solve_f3(c_ij, **kwargs):
     n_cities = np.shape(c_ij)[0]
     cities = np.arange(n_cities)
     city0 = 0
@@ -125,6 +135,10 @@ def solve_f3(c_ij):
                        GRB.MINIMIZE)
 
     # Optimize
+    for k in kwargs:
+        model.setParam(k, kwargs[k])
+    if 'TimeLimit' not in kwargs:
+        model.setParam('TimeLimit', 3600)
     model.optimize()
 
     # Status checking
@@ -135,7 +149,7 @@ def solve_f3(c_ij):
               "unbounded")
         sys.exit(1)
 
-    if status != GRB.OPTIMAL:
+    if status != GRB.OPTIMAL and status != GRB.TIME_LIMIT:
         print("Optimization was stopped with status ", status)
         sys.exit(1)
 
