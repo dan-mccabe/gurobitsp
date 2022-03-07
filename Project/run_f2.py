@@ -10,22 +10,22 @@ def run_f2():
     for i, inst in enumerate(instances):
         # Solve as-is initially
         print('*** Solving Model {} ***'.format(names[i]))
-        solve_f2(inst, **{'TimeLimit': 10})
+        solve_f2(inst)
         print()
 
         # Turn off Presolve
         print('Presolve Turned Off\n')
-        solve_f2(inst, **{'Presolve': 0, 'TimeLimit': 10})
+        solve_f2(inst, **{'Presolve': 0})
         print()
 
         # Turn off cuts
         print('Cuts Turned Off\n')
-        solve_f2(inst, **{'Cuts': 0, 'TimeLimit': 10})
+        solve_f2(inst, **{'Cuts': 0})
         print()
 
         # Turn off both presolve and cuts
         print('Presolve and Cuts Turned Off\n')
-        solve_f2(inst, **{'Presolve': 0, 'Cuts': 0, 'TimeLimit': 10})
+        solve_f2(inst, **{'Presolve': 0, 'Cuts': 0})
         print()
 
 

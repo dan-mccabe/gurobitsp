@@ -2,7 +2,7 @@ from formulations import solve_f3, load_instances
 
 
 def run_f3():
-    print('\n\n*** FORMULATION F2 ***\n\n')
+    print('\n\n*** FORMULATION F3 ***\n\n')
 
     # Load instances
     instances = load_instances()
@@ -11,22 +11,22 @@ def run_f3():
     for i, inst in enumerate(instances):
         # Solve as-is initially
         print('*** Solving Model {} ***'.format(names[i]))
-        solve_f3(inst, **{'TimeLimit': 10})
+        solve_f3(inst)
         print()
 
         # Turn off Presolve
         print('Presolve Turned Off\n')
-        solve_f3(inst, **{'Presolve': 0, 'TimeLimit': 10})
+        solve_f3(inst, **{'Presolve': 0})
         print()
 
         # Turn off cuts
         print('Cuts Turned Off\n')
-        solve_f3(inst, **{'Cuts': 0, 'TimeLimit': 10})
+        solve_f3(inst, **{'Cuts': 0})
         print()
 
         # Turn off both presolve and cuts
         print('Presolve and Cuts Turned Off\n')
-        solve_f3(inst, **{'Presolve': 0, 'Cuts': 0, 'TimeLimit': 10})
+        solve_f3(inst, **{'Presolve': 0, 'Cuts': 0})
         print()
 
 
